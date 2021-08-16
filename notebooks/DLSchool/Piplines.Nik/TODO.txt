@@ -1,0 +1,6 @@
+
+
+
+3. Decision trees
+- Find dataset Vertuha and plot test(!) accuracy depenting on tree depth
+- find old course on Entropy noise (синие и оранж шарики)
