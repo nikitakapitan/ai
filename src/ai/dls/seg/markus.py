@@ -40,13 +40,13 @@ class MarkusSegNet(nn.Module):
         X_val, Y_val = next(iter(data_val))
         if epochs == 0:
             answer = Y_val
+        train_avgloss = []
+        test_avgloss = []
 
         for epoch in range(epochs):
             print(f"Epoch {epoch+1}/{epochs}")
 
             sum_loss = 0
-            train_avgloss = []
-            test_avgloss = []
 
             # LEARNING
             model.train()
