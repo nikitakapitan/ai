@@ -7,7 +7,7 @@ from IPython.display import clear_output
 import torch
 from torch.utils.data import DataLoader
 
-BATCH_SIZE = 1
+BATCH_SIZE = 2
 IMG_SIZE = 256
 
 images = []

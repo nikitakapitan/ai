@@ -1,4 +1,3 @@
-import numpy as np
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -9,7 +8,6 @@ from time import time
 
 from ai.dls.seg.vizual import plot_seg
 
-nn.BCELoss
 
 class MarkusSegNet(nn.Module):
     def __init__(self):
@@ -28,7 +26,7 @@ class MarkusSegNet(nn.Module):
         x = self.features(X)     # [batch, C(512), H(8)  , W(8)  ]
         x = self.upsampling(x)   # [batch, C(512), H(256), W(256)]
         x = self.classifier(x)   # [batch, C(1)  , H(256), W(256)]
-        x = F.softmax(x, dim=0)  # [probabilities: output on [0,1]
+        x = F.sigmoid(x)         # [probabilities: output on [0,1] (noo need softmax as binary seg)
         return x                 # [batch, C(1)  , H(256), W(256)]
 
     def fit(model, opt, loss_fn, epochs, data_tr : DataLoader, data_val : DataLoader, device):
