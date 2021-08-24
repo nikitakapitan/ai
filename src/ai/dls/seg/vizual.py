@@ -17,7 +17,7 @@ def plot_seg(X_val, answer, ground):
         plt.axis('off')
 
         quantile = 0.75
-        seg = (answer[k,0] > np.quantile(answer[k,0].numpy()), quantile).int()
+        seg = (answer[k,0] > np.quantile(answer[k,0].numpy(), quantile)).int()
         plt.subplot(4, n, k + 1 + 2 * n)
         plt.imshow(seg, cmap='gray')
         plt.title(f'Binary seg, quantile={quantile}')
