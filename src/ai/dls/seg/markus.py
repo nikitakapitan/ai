@@ -38,7 +38,7 @@ class MarkusSegNet(nn.Module):
         data_tr. Normally on CPU, will be put on available device.
         """
         X_val, Y_val = next(iter(data_val))
-        if epoch == 0:
+        if epochs == 0:
             answer = Y_val
 
         for epoch in range(epochs):
