@@ -24,7 +24,7 @@ def plot_seg(X_val, answer, ground):
         plt.axis('off')
 
         plt.subplot(4, n, k + 1 + 3 * n)
-        plt.imshow(ground, cmap='gray')
+        plt.imshow(ground[k,0], cmap='gray')
         plt.title('Ground Truth')
         plt.axis('off')
     return plt
