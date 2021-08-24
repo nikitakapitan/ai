@@ -29,7 +29,7 @@ class MarkusSegNet(nn.Module):
         x = F.sigmoid(x)         # [probabilities: output on [0,1] (noo need softmax as binary seg)
         return x                 # [batch, C(1)  , H(256), W(256)]
 
-    def fit(model, opt, loss_fn, epochs, data_tr : DataLoader, data_val : DataLoader, device):
+    def fit(model, opt, loss_fn, epochs, data_tr : DataLoader, data_val : DataLoader, device='cpu'):
         """
         opt: torch.optim, this optimazed should be externaly charged with model.parameters()
         loss_fn: function, any function. Optimizer knowns nothing about loss.
@@ -38,6 +38,8 @@ class MarkusSegNet(nn.Module):
         data_tr. Normally on CPU, will be put on available device.
         """
         X_val, Y_val = next(iter(data_val))
+        if epoch == 0:
+            answer = Y_val
 
         for epoch in range(epochs):
             print(f"Epoch {epoch+1}/{epochs}")
@@ -62,9 +64,9 @@ class MarkusSegNet(nn.Module):
             # BENCHMARKING
             model.eval()
             X_val = X_val.to(device)
-            answer = model.forward(X_val)
+            answer = model.forward(X_val)           # [batch, C(1)  , H(256), W(256)]
             X_val, answer = X_val.detach().cpu(), answer.detach().cpu()
             tloss = loss_fn(answer, Y_val)
             print(f'Test Avg epoch {epoch} loss = ', tloss/len(X_val))
 
-        plot_seg(X_val, answer)
+        model.plot = plot_seg(X_val, answer)
