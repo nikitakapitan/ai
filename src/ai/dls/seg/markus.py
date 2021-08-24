@@ -5,7 +5,7 @@ from torchvision import models
 import torch.optim as optim
 from time import time
 
-from ai.dls.seg.vizual import plot_seg
+from ai.dls.seg.vizual import plot_seg, plot_learning
 
 
 class MarkusSegNet(nn.Module):
@@ -20,6 +20,7 @@ class MarkusSegNet(nn.Module):
 
         self.upsampling = nn.Upsample(scale_factor=32, mode='bilinear', align_corners=True)
         self.classifier = nn.Conv2d(512, 1, kernel_size=1)
+
 
     def forward(self, X):        # [batch, C(3),   H(256), W(256)]
         x = self.features(X)     # [batch, C(512), H(8)  , W(8)  ]
@@ -44,6 +45,8 @@ class MarkusSegNet(nn.Module):
             print(f"Epoch {epoch+1}/{epochs}")
 
             sum_loss = 0
+            train_avgloss = []
+            test_avgloss = []
 
             # LEARNING
             model.train()
@@ -58,7 +61,9 @@ class MarkusSegNet(nn.Module):
 
                 loss.backward()                     # compute gradient for each model parameter
                 opt.step()                          # apply gradient step
-            print(f'Train Avg epoch({epoch}) loss = ', sum_loss/len(data_tr))
+            train_avgloss.append(sum_loss/len(data_tr))
+            print(f'Train Avg epoch({epoch}) loss = ', train_avgloss[-1])
+
 
             # BENCHMARKING
             model.eval()
@@ -66,6 +71,10 @@ class MarkusSegNet(nn.Module):
             answer = model.forward(X_val)           # [batch, C(1)  , H(256), W(256)]
             X_val, answer = X_val.detach().cpu(), answer.detach().cpu()
             tloss = loss_fn(answer, Y_val)
-            print(f'Test Avg epoch {epoch} loss = ', tloss/len(X_val))
 
-        model.plot = plot_seg(X_val, answer)
+            test_avgloss.append(tloss/len(X_val))
+            print(f'Test Avg epoch {epoch} loss = ', test_avgloss[-1])
+
+        plot_learning(epochs, train_avgloss, test_avgloss)
+        plot_seg(X_val, answer, Y_val)
+
