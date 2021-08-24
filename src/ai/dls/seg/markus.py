@@ -1,6 +1,5 @@
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
 from torch.utils.data import DataLoader
 from torchvision import models
 import torch.optim as optim
@@ -26,7 +25,7 @@ class MarkusSegNet(nn.Module):
         x = self.features(X)     # [batch, C(512), H(8)  , W(8)  ]
         x = self.upsampling(x)   # [batch, C(512), H(256), W(256)]
         x = self.classifier(x)   # [batch, C(1)  , H(256), W(256)]
-        x = F.sigmoid(x)         # [probabilities: output on [0,1] (noo need softmax as binary seg)
+        x = torch.sigmoid(x)     # [probabilities: output on [0,1] (noo need softmax as binary seg)
         return x                 # [batch, C(1)  , H(256), W(256)]
 
     def fit(model, opt, loss_fn, epochs, data_tr : DataLoader, data_val : DataLoader, device='cpu'):
@@ -38,7 +37,7 @@ class MarkusSegNet(nn.Module):
         data_tr. Normally on CPU, will be put on available device.
         """
         X_val, Y_val = next(iter(data_val))
-        if epoch == 0:
+        if epochs == 0:
             answer = Y_val
 
         for epoch in range(epochs):

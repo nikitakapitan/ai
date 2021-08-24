@@ -12,6 +12,9 @@ def plot_seg(X_val, answer):
         plt.axis('off')
 
         plt.subplot(2, n, k + 1 + n)
+        print(answer.shape)
+        print(answer[k].shape)
+        print(answer[k, 0].shape)
         plt.imshow(answer[k, 0], cmap='gray')
         plt.title('Output')
         plt.axis('off')
