@@ -1,4 +1,8 @@
-The py files in this library are written by me from scratch for learning purposes only:
+Purpose: knowledge only
+Application: MNIST classification
+Interactive example: ai/notebooks/gold standard/recon.ipynb
+
+The py files in this library are written by me from scratch for learning purposes only.
 
 network.py [Main file] - neural network class definition with:
 - network initialization
