@@ -1,4 +1,10 @@
-[MAIN FILE] network.py - neural network with learning engine, backpropagatino etc.
+The py files in this library are written by me from scratch for learning purposes only:
+
+network.py [Main file] - neural network class definition with:
+- network initialization
+- forward pass (aka predict)
+- learning engine (aka fit)
+- backpropagation
 
 activation_function.py - definition of sigmoid, sigmoid_prime etc
 
