@@ -1,17 +1,11 @@
-activation_function.py - sigmoid, sigmoid_prime
+[MAIN FILE] network.py - neural network with learning engine, backpropagatino etc.
 
-choice.py 
-I would advise to skip this step and charge the network while creation
+activation_function.py - definition of sigmoid, sigmoid_prime etc
 
+gradient.py - additional file with analytical and numerical gradiend analysis
 
-gradient.py
-curiosity file with analytical and numerical gradiend computation
+regnetwork.py - Inherited network class with regularization
 
-network.py
-MAIN FILE
+Target_functions.py - definition of QuadraticCost, CrossEntropyCost and their derivatives.
 
-regnetwork
-Inherited network class with regularization
-
-Target_functions - J_quadratic, J_quadratic_derivative.
-Coming soon... J_cross_entropy
+neuron.py (depricated, not used) - class definition of a single neuron.
