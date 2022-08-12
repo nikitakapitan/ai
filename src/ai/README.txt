@@ -15,16 +15,18 @@ network.py [Main file] - neural network class definition with:
   - def update_batch: update weights given the pre-computed gradient
     - def backpropa : compute analytical gradient through the whole network
 
-activation_function.py - abstract class for general activation function
+activation_function.py - abstract class for general activation function.
+  - you can define your own activation function to be used for training
 
 available examples: Linear, Sigmoid
 
-
+target_functions.py (aka Loss) - abstract class for general Loss function
+ - you can define your own loss function to be used for training 
+ 
+ available examples: QuadraticLoss, CrossEntropyLoss
 
 gradient.py - additional file with analytical and numerical gradiend analysis
 
 regnetwork.py - Inherited network class with regularization
 
-Target_functions.py - definition of QuadraticCost, CrossEntropyCost and their derivatives.
-
-neuron.py (depricated, not used) - class definition of a single neuron.
+neuron.py (depricated, not used) - class definition of a single neuron, aka Perceptron.
